@@ -96,6 +96,7 @@ Client
 ----
 Get the latest release from piBoard Client form the Client repo, under releases.
 
+https://github.com/piBoard/piBoard-client/releases
 
 License
 ----
