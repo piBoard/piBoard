@@ -16,8 +16,8 @@ done
 
 echo "************************** Installing piBoard autorun *******************************"
 chmod 755 ./setup-autorun-rpi.sh
-./setup-autorun-rpi.sh
-
+sudo ./setup-autorun-rpi.sh
+./piBoard-init.sh start
 echo "*************************************************************************************"
 echo "************************** Thank You for installing piBoard**************************"
 echo "*************************************************************************************"
