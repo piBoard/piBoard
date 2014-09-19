@@ -1,11 +1,14 @@
 piBoard
 =========
-----
+
+Plugable embedded boards dashboard
+
 What is it ?
 ----
 piBoard is a plugable HTML-based dashboard for embedded boards.It provides a plugin architecture for creating plugins that will help with managing your embedded board.
 piBoard will give you the abillity to connect to all embedded boards (rasperry pi, beaglebone...etc) that are connected to your local network
 
+![image](http://208.67.180.98/piBoard/piboard-secure.png)
 How to Use
 ----
 Using piBoard is straight forward, piBoard have two parts:
@@ -23,12 +26,20 @@ Features
 
 * Plugins system: you can write your own plugin using javascript, html and nodejs
 * Auto scan to detect any running piBoard-server in the local network
+  ![image](http://208.67.180.98/piBoard/piboard-secure.png)
 * Password protection to prevent insecure access to the board
+  ![image](http://208.67.180.98/piBoard/piboard-password.png)
 * Core plugins that comes out of the box when you install the piBoard:
   1. Mouse & keyboard plugin: this plugin will let you control your device mouse and keyboard form your laptop, without hooking a real mouse and keyboard to your rasperrypi.
-  2. System plugin: this plugin will give you realtime updates on your system resources (memoury/cpu)
+  ![image](http://208.67.180.98/piBoard/piboard-mouse&keyboard.png)
+  2. System plugin: this plugin will give you realtime updates on your system resources
+  (memoury/cpu)
+  ![image](http://208.67.180.98/piBoard/piboard-system.png)
   * More plugins to come with futuer version releases
-  
+
+
+
+
 
 Installation
 --------------
@@ -93,4 +104,3 @@ MIT
 
 
 **Free Software, Hell Yeah!**
-
