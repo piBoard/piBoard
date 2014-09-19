@@ -1,0 +1,10 @@
+{
+  "name": "mousekeyboard",
+  "title": "Mouse & keyboard",
+  "version": "1.0.0",
+  "main": "index.html",
+  "dependencies": {
+    "async": "^0.9.0",
+    "exec": "^0.1.2"
+  }
+}

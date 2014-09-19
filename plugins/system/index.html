@@ -1,0 +1,53 @@
+
+
+<h2 class="sub-header">System monitor</h2>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Uptime (Minutes)</th>
+        <th>Free memory (MB)</th>
+        <th>Total memory (MB)</th>
+        <th>Load Avg (5 / 10 / 15)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="uptime"></td>
+        <td class="freemem"></td>
+        <td class="totalmem"></td>
+        <td class="loadavg"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<h2 class="sub-header">CPUs</h2>
+<div class="row placeholders cpus">
+
+</div> 
+<script>
+
+  plugins.system.methods.monitor(osUpdate,'');
+  plugins.system.methods.callMethod(osCpusUpdate,'cpus');
+
+  function osUpdate(data) {
+    $('.uptime').html((Number(data.uptime) / 60).toFixed(0));
+    $('.freemem').html((Number(data.freemem) / 1000000).toFixed(0));
+    $('.totalmem').html((Number(data.totalmem) / 1000000).toFixed(0));
+    $('.loadavg').html(Number((data.loadavg[0]).toFixed(2)) + ' / ' + Number((data.loadavg[1]).toFixed(2)) + ' / ' + Number((data.loadavg[2]).toFixed(2)));
+  }
+
+  function osCpusUpdate(data) {
+    $('.cpus').html('');
+    for(var i in data){
+      var cpu = data[i];
+      var coreNumber = parseInt(i) + 1;
+      var element = '<div class="col-xs-6 col-sm-3 placeholder">';
+      element += '<img data-src="holder.js/200x200/auto/vine/text:CPU #' + coreNumber + '" class="img-responsive" alt="Generic placeholder thumbnail">';
+      element += '<span class="text-muted">' + cpu.model + '</span>';
+      element += '</div>';
+      $('.cpus').append(element);
+    }
+    Holder.run();
+  }
+</script>

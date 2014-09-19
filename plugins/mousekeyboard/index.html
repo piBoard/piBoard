@@ -1,0 +1,135 @@
+<style type="text/css">
+
+  .dotted {
+    padding: 2.25em 1.6875em;
+    background-image: -webkit-repeating-radial-gradient(center center, rgba(0,0,0,.2), rgba(0,0,0,.2) 1px, transparent 1px, transparent 100%);
+    background-image: -moz-repeating-radial-gradient(center center, rgba(0,0,0,.2), rgba(0,0,0,.2) 1px, transparent 1px, transparent 100%);
+    background-image: -ms-repeating-radial-gradient(center center, rgba(0,0,0,.2), rgba(0,0,0,.2) 1px, transparent 1px, transparent 100%);
+    background-image: repeating-radial-gradient(center center, rgba(0,0,0,.2), rgba(0,0,0,.2) 1px, transparent 1px, transparent 100%);
+    -webkit-background-size: 3px 3px;
+    -moz-background-size: 3px 3px;
+    background-size: 3px 3px;
+  }
+  .mousepad{
+    width: 100%;
+    height: 280px; 
+    text-align: center;
+    display: table;
+  }
+  .mousepad h2{
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    border: none;
+  }
+</style>
+<div class="alert alert-info">All keyboard keys will be sent to the other device</div>
+<div class="mousepad dotted">
+  <h2 class="sub-header">Mouse Pad</h2>
+</div>
+
+<script>
+var oldX = 0;
+var oldY = 0;
+var diff = 15;
+var movementTimer;
+
+var mouseEvent = function(data) {
+}
+
+var mouseAndKeyboardInit = function(data){ 
+  var dims = data;
+  var specialKeys = [
+    "esc","tab","space","return","backspace","scroll","capslock","numlock","insert","home","del","end","pageup","pagedown",
+    "left","up","right","down",
+    "f1","f2","f3","f4","f5","f6","f7","f8","f9","f10","f11","f12",
+    "1","2","3","4","5","6","7","8","9","0",
+    "a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z",
+    "[","]","\\",";","'","/","-","=","`",",","."
+  ];
+  var comb = ["","Ctrl","Alt","Shift","Alt+Shift","Ctrl+Shift","Ctrl+Alt","Ctrl+Alt+Shift"]
+  var replaceKeys = {
+    "capslock": "0xFFE5",
+    "return": "0xFF0D",
+    "backspace": "0xFF08",
+    "-":  "0x02d",
+    "=": "0x03d",
+    "[": "0x05b",
+    "]": "0x05d",
+    "\\": "0x05c",
+    ";": "0x03b",
+    "'": "0x027",
+    ",": "0x02c",
+    ".": "0x02e",
+    "/": "0x02f",
+    "`": "0x060"
+  }
+  var down = [];
+  $(document).focus();
+  $(document).unbind('keydown');
+  $.each(comb, function(i, e) { // i is element index. e is element as text.
+    $.each(specialKeys,  function(k, e){
+      var combElement = (comb[i]) ? comb[i] + "+" : "";
+      var newElement =  combElement + specialKeys[k];
+      var elementReplace = (replaceKeys[specialKeys[k]]) ? combElement + replaceKeys[specialKeys[k]] : combElement + specialKeys[k] 
+      $(document).bind('keydown', newElement, function() {
+        down.push(elementReplace);
+      });
+    })
+
+  });
+  $(document).unbind('keyup').bind('keyup',function(e) {
+    if(down.length){
+      var key = down.join('+');
+      plugins.mousekeyboard.methods.key(mouseEvent, {key: key});
+      down = [];
+    }
+  });
+
+  $('.mousepad').unbind('mousedown').bind('mousedown',function(e){
+    var id = e.which || 1;
+    plugins.mousekeyboard.methods.clickMouse(function(data){}, {id: id});
+  });
+
+  $('.mousepad').unbind('mousemove').bind('mousemove',function(e){
+    var pad = $(this);
+    var offset = pad.offset();
+
+    clearTimeout(movementTimer);
+    var x = e.pageX - offset.left;
+    var y = e.pageY - offset.top;
+
+    if((Math.abs(oldX - x) >= diff) || (Math.abs(oldY - y) >= diff)){
+
+      oldX = e.pageX - offset.left;
+      oldY = e.pageY - offset.top;
+      var calcX = (oldX * dims.dimX) / pad.width();
+      var calcY = (oldY * dims.dimY) / pad.height();
+
+      plugins.mousekeyboard.methods.moveMouse(mouseEvent, {x: calcX, y: calcY});
+      
+      var message = new Buffer('{"x": "' + calcX + '", "y": "' + calcY + '"}');
+
+      /*client.send(message, 0, message.length, port, host, function(err, bytes) {
+          if (err) throw err;
+      });*/
+
+    }
+    movementTimer = setTimeout(function(){
+
+      oldX = e.pageX - offset.left;
+      oldY = e.pageY - offset.top;
+      var calcX = (oldX * dims.dimX) / pad.width();
+      var calcY = (oldY * dims.dimY) / pad.height();
+      var message = new Buffer('{"x": "' + calcX + '", "y": "' + calcY + '"}');
+      plugins.mousekeyboard.methods.moveMouse(mouseEvent, {x: calcX, y: calcY});
+/*      client.send(message, 0, message.length, port, host, function(err, bytes) {
+          if (err) throw err;
+      });*/
+
+    }, 15);
+  });
+}
+
+plugins.mousekeyboard.methods.getScreenDimensions(mouseAndKeyboardInit, {});
+</script>

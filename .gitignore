@@ -1,0 +1,17 @@
+**/node_modules
+*/**/node_modules
+*/bower_components
+*/*.app
+*/node-webkit
+*/nwsnapshot
+*/nw
+*/libffmpegsumo.so
+*/*.pak
+*/*.nw
+*/credits.html
+nw
+libffmpegsumo.so
+*.pak
+*.nw
+credits.html
+nwsnapshot

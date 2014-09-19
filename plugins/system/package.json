@@ -1,0 +1,13 @@
+{
+  "name": "system",
+  "title": "System",
+  "main": "index.html",
+  "includes": [
+    "system-info-card.html",
+    "cpu-info-card.html"
+  ],
+  "dependencies": {
+    "os-monitor": "~0.3.0",
+    "exec": "~0.1.2"
+  }
+}
