@@ -6,16 +6,16 @@ Plugable embedded boards dashboard
 What is it ?
 ----
 piBoard is a plugable HTML-based dashboard for embedded boards.It provides a plugin architecture for creating plugins that will help with managing your embedded board.
-piBoard will give you the abillity to connect to all embedded boards (rasperry pi, beaglebone...etc) that are connected to your local network
+piBoard will give you the abillity to connect to all embedded boards (Raspberry Pi, beaglebone...etc) that are connected to your local network
 
 ![image](http://208.67.180.98/piBoard/piboard-secure.png)
 How to Use
 ----
 Using piBoard is straight forward, piBoard have two parts:
-* Server: which will be installed on the device that you want to manage lets say (rasperry pi)
+* Server: which will be installed on the device that you want to manage lets say (Raspberry Pi)
 * Client: which will run on you computer to give you the ability to connect to the device and manage it 
 
-you only need to install piBoard-server on your embedded board (ex: rasperry pi) then run the piBoard-client on your computer. Which will automatically search and list all running piBoard-server inside your local network.
+you only need to install piBoard-server on your embedded board (ex: Raspberry Pi) then run the piBoard-client on your computer. Which will automatically search and list all running piBoard-server inside your local network.
 
 Version
 ----
@@ -46,7 +46,7 @@ Installation
 
 First you need to install the latest version of nodejs on the embedded device.
 
-For rasperry pi and debian based embedded devices use the following command to install nodejs:
+For Raspberry Pi and debian based embedded devices use the following command to install nodejs:
 
 ```sh
 wget http://node-arm.herokuapp.com/node_latest_armhf.deb 
