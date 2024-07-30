@@ -12,6 +12,11 @@ var conf = "";
 
 var piBoard = {
   httpHandler: function(req, res) {
+    if (path.normalize(decodeURI(req.url)) !== decodeURI(req.url)) {
+        res.statusCode = 403;
+        res.end();
+        return;
+    }
     var uri = url.parse(req.url).pathname;
     if(uri == "/"){
       uri = "/index.html";
